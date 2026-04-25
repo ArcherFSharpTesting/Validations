@@ -1,5 +1,5 @@
 (section-meta
-    (title Fletcher Test Validations for the Archer Test Framework)
+    (title Archer.Fletching: Test Validations for the Archer Test Framework)
     (include
         (Overview ./philosophy.md)
         (HowTo ./howto.md)

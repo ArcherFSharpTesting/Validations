@@ -1,12 +1,12 @@
 <!-- (dl
 (section-meta
-  (title How to Use Fletcher Test Validations)
+    (title How to Use Archer.Fletching Test Validations)
 )
 ) -->
 
-Fletcher test validations are designed to be functional, composable, and expressive. The following usage patterns and return value conventions apply to all validation helpers:
+Archer.Fletching test validations are designed to be functional, composable, and expressive. The following usage patterns and return value conventions apply to all validation helpers:
 
-## Usage Patterns
+<!-- (dl (# Usage Patterns)) -->
 
 - **Direct Invocation:**
   ```fsharp
@@ -21,7 +21,7 @@ Fletcher test validations are designed to be functional, composable, and express
 - **Custom Predicates:**
   Many validations accept F# quotations or functions for custom checks.
 
-## Return Values
+<!-- (dl (# Return Values)) -->
 
 All validation helpers return a `TestResult` value, not an exception. This enables:
 - Composability: Combine results, pipe through further checks, or aggregate outcomes.

@@ -4,10 +4,10 @@
 
 <!-- Compiled with doculisp https://www.npmjs.com/package/doculisp -->
 
-# Fletcher Test Validations for the Archer Test Framework #
+# Archer.Fletching: Test Validations for the Archer Test Framework #
 
-1. Overview: [Philosophy of Fletcher Test Validations](#philosophy-of-fletcher-test-validations)
-2. HowTo: [How to Use Fletcher Test Validations](#how-to-use-fletcher-test-validations)
+1. Overview: [Philosophy of Archer.Fletching Test Validations](#philosophy-of-archerfletching-test-validations)
+2. HowTo: [How to Use Archer.Fletching Test Validations](#how-to-use-archerfletching-test-validations)
 3. Feature: [Should Object Validation Functions](#should-object-validation-functions)
 4. Feature: [Should Result Validation Functions](#should-result-validation-functions)
 5. Feature: [Should Boolean Validation Functions](#should-boolean-validation-functions)
@@ -17,11 +17,11 @@
 9. Feature: [SeqShould Sequence Validation Functions](#seqshould-sequence-validation-functions)
 10. Feature: [ArrayShould Array Validation Functions](#arrayshould-array-validation-functions)
 11. Feature: [Not Validation Helper](#not-validation-helper)
-12. Review: [Archer.Validations](#archerfletching)
+12. Review: [Archer.Validations](#archervalidations)
 
-## Philosophy of Fletcher Test Validations ##
+## Philosophy of Archer.Fletching Test Validations ##
 
-Fletcher test validations are designed to provide a functional, composable, and expressive approach to test assertions in F#. Unlike traditional assertion libraries that throw exceptions on failure, Fletcher validations return a `TestResult` value. This enables:
+Archer.Fletching test validations are designed to provide a functional, composable, and expressive approach to test assertions in F#. Unlike traditional assertion libraries that throw exceptions on failure, Archer.Fletching validations return a `TestResult` value. This enables:
 
 - **Composability:** Test results can be combined, piped, and further processed, supporting complex validation flows.
 - **Functional Style:** Validations are functions that can be used directly or in pipelines, aligning with idiomatic F# code.
@@ -31,11 +31,11 @@ Fletcher test validations are designed to provide a functional, composable, and 
 
 The philosophy is to empower developers to write robust, maintainable, and expressive tests that fit naturally into functional programming workflows.
 
-## How to Use Fletcher Test Validations ##
+## How to Use Archer.Fletching Test Validations ##
 
-Fletcher test validations are designed to be functional, composable, and expressive. The following usage patterns and return value conventions apply to all validation helpers:
+Archer.Fletching test validations are designed to be functional, composable, and expressive. The following usage patterns and return value conventions apply to all validation helpers:
 
-## Usage Patterns
+### Usage Patterns ###
 
 - **Direct Invocation:**
   ```fsharp
@@ -52,7 +52,7 @@ Fletcher test validations are designed to be functional, composable, and express
 - **Custom Predicates:**
   Many validations accept F# quotations or functions for custom checks.
 
-## Return Values
+### Return Values ###
 
 All validation helpers return a `TestResult` value, not an exception. This enables:
 - Composability: Combine results, pipe through further checks, or aggregate outcomes.
@@ -473,11 +473,81 @@ For more details, see the source in `Lib/NotImplemented.fs`.
 
 A test verification Framework for Archer
 
-### Should ###
+### Complete Features ###
+
+- Should
+  - Object
+    - {value} |> Should.BeEqualTo {value}
+    - {value} |> Should.NotBeEqualTo {value}
+    - {value} |> Should.BeSameAs {value}
+    - {value} |> Should.NotBeSameAs {value}
+    - {value} |> Should.BeOfType<Type>
+    - {value} |> Should.NotBeOfType<Type>
+    - {value} |> Should.BeNull
+    - {value} |> Should.NotBeNull
+    - {value} |> Should.BeDefaultOf<Type>
+    - {value} |> Should.NotBeDefaultOf<Type>
+    - {value} |> Should.PassTestOf {predicate}
+    - {value} |> Should.NotPassTestOf {predicate}
+    - {value} |> Should.PassAllOf [ {value -> TestResult} ]
+  - Result
+    - {result} |> Should.BeOk {value}
+    - {result} |> Should.BeError {value}
+  - Boolean
+    - {bool} |> Should.BeTrue
+    - {bool} |> Should.BeFalse
+  - Approvals
+    - {testInfo} |> Should.MeetStandard {reporter} {string}
+  - Other
+    - {string} |> Should.Fail
+    - {value} |> Should.BeIgnored {string}
+    - {value} |> Should.BeIgnored
+- ListShould
+  - {list} |> ListShould.Contain {value}
+  - {list} |> ListShould.NotContain {value}
+  - {list} |> ListShould.HaveAllValuesPassTestOf {predicateExpression}
+  - {list} |> ListShould.HaveNoValuesPassTestOf {predicateExpression}
+  - {list} |> ListShould.HaveLengthOf {integer}
+  - {list} |> ListShould.NotHaveLengthOf {integer}
+  - {list} |> ListShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+  - {list} |> ListShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+  - {list} |> ListShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- SeqShould
+  - {collection} |> SeqShould.Contain {value}
+  - {collection} |> SeqShould.NotContain {value}
+  - {collection} |> SeqShould.HaveAllValuesPassTestOf {predicateExpression}
+  - {collection} |> SeqShould.HaveNoValuesPassTestOf {predicateExpression}
+  - {collection} |> SeqShould.HaveLengthOf {integer}
+  - {collection} |> SeqShould.NotHaveLengthOf {integer}
+  - {collection} |> SeqShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+  - {collection} |> SeqShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+  - {collection} |> SeqShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- ArrayShould
+  - {array} |> ArrayShould.Contain {value}
+  - {array} |> ArrayShould.NotContain {value}
+  - {array} |> ArrayShould.HaveAllValuesPassTestOf {predicateExpression}
+  - {array} |> ArrayShould.HaveNoValuesPassTestOf {predicateExpression}
+  - {array} |> ArrayShould.HaveLengthOf {integer}
+  - {array} |> ArrayShould.NotHaveLengthOf {integer}
+  - {array} |> ArrayShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+  - {array} |> ArrayShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+  - {array} |> ArrayShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- Not
+  - Not.Implemented ()
+
+### Feature status ###
+
+This is a list of feature ideas. All features on this list _may_ or _may not_ end up in the final product.
+
+#### Should ####
 
 - Dictionary
   - [ ] {dictionary} |> Should.HaveKey {key}
   - [ ] {dictionary} |> Should.NotHaveKey {key}
+  - [ ] {dictionary} |> Should.HaveValue {value}
+  - [ ] {dictionary} |> Should.HavePair ({key}, {value})
+  - [ ] {dictionary} |> Should.BeEmpty
+  - [ ] {dictionary} |> Should.NotBeEmpty
 - Object
   - [x] {value} |> Should.BeEqualTo {value}
   - [x] {value} |> Should.NotBeEqualTo {value}
@@ -498,15 +568,19 @@ A test verification Framework for Archer
 - Functions
   - [ ] {action} |> Should.Return {value}
   - [ ] {action} |> Should.NotReturnValue {value}
-  - [ ] let result: Result<ex, TestExecutionResult> = {action} |> Should.ThrowException
+  - [ ] {action} |> Should.ThrowException
   - [ ] {action} |> Should.NotThrowException
   - [ ] {action} |> Should.Call {action} |> withParameter {predicate} {initialParameter}
 - Events
   - [ ] {IEvent} |> Should.Trigger |> by {action}
   - [ ] {IEvent} |> Should.NotTrigger |> by {action}
+  - [ ] {IEvent} |> Should.TriggerWith {expectedArgs} |> by {action}
 - String
   - [ ] {string} |> Should.Contain {string}
   - [ ] {string} |> Should.NotContain {string}
+  - [ ] {string} |> Should.StartsWith {prefix}
+  - [ ] {string} |> Should.EndWith {suffix}
+  - [ ] {string} |> Should.HaveLengthOf {integer}
   - [ ] {string} |> Should.BeMatchedBy {regex}
   - [ ] {string} |> Should.NotBeMatchedBy {regex}
   - [ ] {string} |> Should.MatchStandard {ITestInfo} {reporter}
@@ -514,6 +588,9 @@ A test verification Framework for Archer
   - [ ] {number} |> Should.BeWithin ({number}, {number})
   - [ ] {number} |> Should.BeBetween ({number}, {number})
   - [ ] {number} |> Should.BeCloseTo {number} |> byDelta {number}
+  - [ ] {number} |> Should.BeEqualTo {number}
+  - [ ] {number} |> Should.BePositive
+  - [ ] {number} |> Should.BeNegative
 - Boolean
   - [x] {bool} |> Should.BeTrue
   - [x] {bool} |> Should.BeFalse
@@ -524,7 +601,7 @@ A test verification Framework for Archer
   - [x] {value} |> Should.BeIgnored {string}
   - [x] {value} |> Should.BeIgnored
 
-### ListShould ###
+#### ListShould ####
 
 - [x] {list} |> ListShould.Contain {value}
 - [x] {list} |> ListShould.NotContain {value}
@@ -545,8 +622,16 @@ A test verification Framework for Archer
 - [x] {list} |> ListShould.HaveLengthOf {integer}
 - [x] {list} |> ListShould.NotHaveLengthOf {integer}
 - [x] {list} |> ListShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+- [ ] {list} |> ListShould.HaveAnyPassTestOf {predicateExpression}
+- [ ] {list} |> ListShould.BeEmpty
+- [ ] {list} |> ListShould.NotBeEmpty
+- [ ] {list} |> ListShould.FindValueWith {indexedPredicateExpression}
+- [ ] {list} |> ListShould.NotFindValueWith {indexedPredicateExpression}
+- [x] {list} |> ListShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+- [x] {list} |> ListShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- [ ] {list} |> ListShould.HaveAnyPassTestOf {indexedPredicateExpression}
 
-### SeqShould ###
+#### SeqShould ####
 
 - [x] {collection} |> SeqShould.Contain {value}
 - [x] {collection} |> SeqShould.NotContain {value}
@@ -567,8 +652,16 @@ A test verification Framework for Archer
 - [x] {collection} |> SeqShould.HaveLengthOf {integer}
 - [x] {collection} |> SeqShould.NotHaveLengthOf {integer}
 - [x] {collection} |> SeqShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+- [ ] {collection} |> SeqShould.HaveAnyPassTestOf {predicateExpression}
+- [ ] {collection} |> SeqShould.BeEmpty
+- [ ] {collection} |> SeqShould.NotBeEmpty
+- [ ] {collection} |> SeqShould.FindValueWith {indexedPredicateExpression}
+- [ ] {collection} |> SeqShould.NotFindValueWith {indexedPredicateExpression}
+- [x] {collection} |> SeqShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+- [x] {collection} |> SeqShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- [ ] {collection} |> SeqShould.HaveAnyPassTestOf {indexedPredicateExpression}
 
-### ArrayShould ###
+#### ArrayShould ####
 
 - [x] {array} |> ArrayShould.Contain {value}
 - [x] {array} |> ArrayShould.NotContain {value}
@@ -589,8 +682,16 @@ A test verification Framework for Archer
 - [x] {array} |> ArrayShould.HaveLengthOf {integer}
 - [x] {array} |> ArrayShould.NotHaveLengthOf {integer}
 - [x] {array} |> ArrayShould.HaveAllValuesPassAllOf [ {value -> TestResult} ]
+- [ ] {array} |> ArrayShould.HaveAnyPassTestOf {predicateExpression}
+- [ ] {array} |> ArrayShould.BeEmpty
+- [ ] {array} |> ArrayShould.NotBeEmpty
+- [ ] {array} |> ArrayShould.FindValueWith {indexedPredicateExpression}
+- [ ] {array} |> ArrayShould.NotFindValueWith {indexedPredicateExpression}
+- [x] {array} |> ArrayShould.HaveAllValuesPassTestOf {indexedPredicateExpression}
+- [x] {array} |> ArrayShould.HaveNoValuesPassTestOf {indexedPredicateExpression}
+- [ ] {array} |> ArrayShould.HaveAnyPassTestOf {indexedPredicateExpression}
 
-### Not ###
+#### Not ####
 
 - [x] Not.Implemented ()
 
