@@ -20,11 +20,11 @@ let private writeTo fullPath writer result =
     fullPath
 
 let private writeBinaryTo fullPath result =
-    let writer path toWrite = File.WriteAllBytes (path, toWrite)
+    let writer path (toWrite: byte array) = File.WriteAllBytes (path, toWrite)
     result |> writeTo fullPath writer
 
 let private writeTextTo fullPath result =
-    let writer path toWrite = File.WriteAllText (path, toWrite, System.Text.Encoding.UTF8)
+    let writer path (toWrite: string) = File.WriteAllText (path, toWrite, System.Text.Encoding.UTF8)
     result |> writeTo fullPath writer
     
 /// <summary>
